@@ -4,14 +4,17 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { BirthYearValidatorDirective } from '../../../directives/birth-year-validator.directive';
 
 @Component({
-  selector: 'app-new-employee',
+  selector: 'app-new-empoloyee',
   standalone: true,
   imports: [FormsModule, CommonModule, BirthYearValidatorDirective],
-  templateUrl: './new-employee.component.html',
-  styleUrl: './new-employee.component.css'
+  templateUrl: './new-empoloyee.component.html',
+  styleUrl: './new-empoloyee.component.css'
 })
-export class NewEmployeeComponent {
-public newEmployeeSubmit(f:NgForm){
+export class NewEmpoloyeeComponent {
+
+
+  public newEmployeeSubmit(f:NgForm){
     console.log(f.form);
   }
+
 }

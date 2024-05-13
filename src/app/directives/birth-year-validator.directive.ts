@@ -1,12 +1,18 @@
 import { Directive } from '@angular/core';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
-
+import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 @Directive({
-  selector: '[appBirthYearValidator]',
+  selector: '[birthYearValidator]',
+  providers:[
+    {
+      provide:NG_VALIDATORS,
+      useClass:BirthYearValidatorDirective,
+      multi:true
+    }
+  ],
   standalone: true
 })
-export class BirthYearValidatorDirective {
+export class BirthYearValidatorDirective implements Validator{
 
   constructor() { }
 
