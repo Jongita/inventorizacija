@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" [@caption]="captionState" (click)="captionClick()">
             Pridėti naują inventorizuojamą daiktą
         </div>
         <div class="card-body">
@@ -8,9 +8,15 @@
                 <div class="mb-3 row">
                     <label for="" class="col-sm-3 col-form-label text-end">Inventorizacijos numeris:</label>
                     <div class="col-sm-9">
-                        <input class="form-control" [class.is-invalid]="!itemForm.get('inv_number')?.valid && itemForm.get('inv_number')?.touched" formControlName="inv_number">
-                        <div class="helper-block" *ngIf="!itemForm.get('inv_number')?.valid && itemForm.get('inv_number')?.touched">
+                        <input class="form-control" [class.is-invalid]="!itemForm.get('inv_number')?.valid && itemForm.get('inv_number')?.touched && !itemForm.get('inv_number')?.pending" formControlName="inv_number">
+
+                        <div class="helper-block" *ngIf="!itemForm.get('inv_number')?.valid && itemForm.get('inv_number')?.touched && !itemForm.get('inv_number')?.pending">
                             Inventorizacijos numeris yra privalomas, šablonas AAA00000
+                        </div>
+                        <div *ngIf="itemForm.get('inv_number')?.pending">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,7 +42,10 @@
                 <div class="mb-3 row">
                     <label for="" class="col-sm-3 col-form-label text-end">Atsakingas darbuotojas:</label>
                     <div class="col-sm-9">
-                        <input class="form-control" formControlName="responsible_employee_id">
+
+                        <select class="form-control" formControlName="responsible_employee_id">
+                            <option *ngFor="let employee of employees; let i=index" [value]="employee.id">{{ employee.name }} {{ employee.surname }}</option>
+                        </select>
 
 
                     </div>
@@ -47,8 +56,8 @@
                     <label for="" class="col-sm-3 col-form-label text-end">Lokacijos:</label>
                     <div class="col-sm-9">
                         <div class="row" formArrayName="locations">
-                            <div class="col-sm-12 mb-3" *ngFor="let location of locations; let i=index ">
-                                <input type="text" class="form-control" [formControlName]="i">
+                            <div class="col-sm-12 mb-3" *ngFor="let location of locations; let i=index " [@locationInput]>
+                                <input type="text" class="form-control " [formControlName]="i" style="background-color: blue;">
                             </div>
 
 
